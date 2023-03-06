@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "==1.24.2"
+tensorflow = "==2.11.0"
+keras = "==2.11.0"
+scipy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
