@@ -26,6 +26,9 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+@app.get("/msg")
+async def root():
+    return {"message": "Second Message"}
 
 
 @app.post("/upload")
