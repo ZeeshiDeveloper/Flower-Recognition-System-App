@@ -9,7 +9,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from "react-native"; //rnfes
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import * as ImagePicker from "expo-image-picker";
 import { auth } from "../firebase/firebase.config";
@@ -17,6 +17,7 @@ import { auth } from "../firebase/firebase.config";
 const HomePage = ({ navigation }: any) => {
 	const [selectedImage, setSelectedImage] = useState("");
 	const [imageBase64, setImageBase64] = useState("");
+	const [result, setResult] = useState("");
 
 	// This function is triggered when the "Gallery" button pressed
 	const pickImageAsync = async () => {
@@ -30,9 +31,9 @@ const HomePage = ({ navigation }: any) => {
 			setSelectedImage(result.assets[0].uri);
 
 			// console.log("result : ", result);
-			setImageBase64(result.assets[0].base64
-				? result.assets[0].base64
-				: "BASE64 error");
+			setImageBase64(
+				result.assets[0].base64 ? result.assets[0].base64 : "BASE64 error"
+			);
 			// console.log("BASE64 =========================",
 			// 	result.assets[0].base64
 			// 		? result.assets[0].base64
@@ -61,13 +62,13 @@ const HomePage = ({ navigation }: any) => {
 		});
 		if (!result.canceled) {
 			setSelectedImage(result.assets[0].uri);
-			
+
 			// console.log("result : ", result.assets[0].uri);
-			
-			setImageBase64(result.assets[0].base64
-				? result.assets[0].base64
-				: "BASE64 error");
-			
+
+			setImageBase64(
+				result.assets[0].base64 ? result.assets[0].base64 : "BASE64 error"
+			);
+
 			// 	console.log("BASE64 =========================",
 			// 	result.assets[0].base64
 			// 		? result.assets[0].base64
@@ -90,7 +91,7 @@ const HomePage = ({ navigation }: any) => {
 			.catch((error) => alert(error.message));
 	};
 
-	//Upload Image 
+	//Upload Image
 	const handleUpload = async (e: any) => {
 		// const imageData = new FormData();
 		// imageData.append("file", selectedImage);
@@ -110,7 +111,7 @@ const HomePage = ({ navigation }: any) => {
 		// 	.catch(function (error) {
 		// 		console.log(error.message);
 		// 	});
-		await fetch("https://e731-119-73-101-69.in.ngrok.io/upload", {
+		await fetch("https://1eb6-182-178-188-69.in.ngrok.io/upload", {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
@@ -119,9 +120,25 @@ const HomePage = ({ navigation }: any) => {
 			body: JSON.stringify({
 				my_image: imageBase64,
 			}),
-		}).then(function (response) {
-			console.log("POST RESPONSE: ", JSON.stringify(response));
-		});
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				setResult(data["message"]);
+				console.log(data["message"]);
+				// Handle data
+			});
+		// }).then(function (response) {
+		// 	console.log("POST RESPONSE: ", JSON.stringify(response));
+		// });
+
+		// await fetch("https://1eb6-182-178-188-69.in.ngrok.io/send")
+		// 	.then((response) => response.json())
+		// 	.then((json) => {
+		// 		setResult(json.message);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error(error);
+		// 	});
 	};
 
 	// for Name Api
@@ -140,7 +157,24 @@ const HomePage = ({ navigation }: any) => {
 		});
 	};
 
+	// Recieve result from Backend
+	const getResult = async () => {
+		// await fetch('https://1eb6-182-178-188-69.in.ngrok.io/send')
+		//   .then(response => response.json())
+		//   .then(json => {
+		// 	setResult(json.message);
+		//   })
+		//   .catch(error => {
+		// 	console.error(error);
+		//   });
+	};
+
+	useEffect(() => {
+		getResult();
+	}, []);
+
 	console.log("selectedImage : ", selectedImage);
+	console.log("Result ==================== ", result);
 	return (
 		<>
 			<View style={styles.container}>
@@ -157,7 +191,9 @@ const HomePage = ({ navigation }: any) => {
 						)}
 					</View>
 					<View style={styles.name}>
-						<Text style={styles.nameText}>Flower Name : </Text>
+						<Text style={styles.nameText}>
+							Flower Name : <Text style={styles.flowerName}>{result}</Text>
+						</Text>
 					</View>
 					<View style={styles.buttonContainer}>
 						<TouchableOpacity
@@ -219,11 +255,22 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	name: {
-		marginTop: 10,
+		marginTop: 15,
+		width: "100%",
+		textAlign: "center",
+		justifyContent: "center",
+		alignItems: "center",
+		padding: 5,
+		backgroundColor: "#000000c0",
 	},
 	nameText: {
 		color: "#fff",
-		fontSize: 18,
+		fontSize: 20,
+	},
+	flowerName: {
+		fontWeight: "bold",
+		color: "#07B571",
+		fontSize: 22,
 	},
 	buttonContainer: {
 		width: "70%",
@@ -271,7 +318,6 @@ const styles = StyleSheet.create({
 	buttonSubmit: {
 		backgroundColor: "#0782F9",
 		borderRadius: 10,
-		marginTop: 6,
 		paddingVertical: 13,
 		paddingHorizontal: 15,
 		alignItems: "center",

@@ -72,3 +72,5 @@ cnn.compile(optimizer = 'rmsprop' , loss = 'categorical_crossentropy' , metrics 
 cnn.fit(x = training_set , validation_data = test_set , epochs = 30)
 
 cnn.save('flower.h5')
+
+# cnn.save('model.h5')
