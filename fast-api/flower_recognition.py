@@ -68,7 +68,7 @@ cnn.compile(optimizer = 'rmsprop' , loss = 'categorical_crossentropy' , metrics 
 # x and validation_data are arguments
 # epochs perform 30 loops during the training process like cycle
 # Training will complete after this step
-cnn.fit(x = training_set , validation_data = test_set , epochs = 30)
+cnn.fit(x = training_set , validation_data = test_set , epochs = 40)
 
 # cnn.save('flower.h5')
 
