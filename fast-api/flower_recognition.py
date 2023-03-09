@@ -2,7 +2,6 @@
 import numpy as np
 import tensorflow as tf
 from keras.preprocessing.image import ImageDataGenerator
-from keras.preprocessing import image
 
 
 # Data Preprocessing
@@ -58,7 +57,7 @@ cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
 # Output Layer
 # softmax activation function use here bcz output in the form of binary and maximum then 2 
 # CNN is ready after this process
-cnn.add(tf.keras.layers.Dense(units=5 , activation='softmax'))
+cnn.add(tf.keras.layers.Dense(units=6 , activation='softmax'))
 
 
 # Compile result, optimizer is a compiler
@@ -71,6 +70,6 @@ cnn.compile(optimizer = 'rmsprop' , loss = 'categorical_crossentropy' , metrics 
 # Training will complete after this step
 cnn.fit(x = training_set , validation_data = test_set , epochs = 30)
 
-cnn.save('flower.h5')
+# cnn.save('flower.h5')
 
-# cnn.save('model.h5')
+cnn.save('modelC6.h5')

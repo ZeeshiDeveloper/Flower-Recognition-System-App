@@ -3,7 +3,7 @@ import base64
 import numpy as np
 import tensorflow as tf
 # load the saved model
-model = tf.keras.models.load_model('flower.h5')
+model = tf.keras.models.load_model('modelC6.h5')
 
 from pydantic import BaseModel
 from fastapi import FastAPI,File
@@ -44,16 +44,18 @@ async def create_upload_file(payload: ImageData):
     print(result)
 
     if result[0][0]==1:
-        return {"message": 'Daisy'}
+        return {"message": 'Unknown'}
     elif result[0][1]==1:
-        return {"message": 'Dandelion'}
+        return {"message": 'Daisy'}
     elif result[0][2]==1:
+        return {"message": 'Dandelion'}
+    elif result[0][3]==1:
         print('Rose')
         return {"message": 'Rose'}
-    elif result[0][3]==1:
+    elif result[0][4]==1:
         print('SunFlower')
         return {"message": 'SunFlower'}
-    elif result[0][4]==1:
+    elif result[0][5]==1:
         print("Tulip")
         return {"message": 'Tulip'}
 
