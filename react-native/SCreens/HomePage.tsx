@@ -6,7 +6,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from "react-native"; //rnfes
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import * as ImagePicker from "expo-image-picker";
 import { auth } from "../firebase/firebase.config";
@@ -26,16 +26,10 @@ const HomePage = ({ navigation }: any) => {
 		});
 		if (!result.canceled) {
 			setSelectedImage(result.assets[0].uri);
-
 			// console.log("result : ", result);
 			setImageBase64(
 				result.assets[0].base64 ? result.assets[0].base64 : "BASE64 error"
 			);
-			// console.log("BASE64 =========================",
-			// 	result.assets[0].base64
-			// 		? result.assets[0].base64
-			// 		: "BASE64 error"
-			// );
 		} else {
 			alert("You did not select any image.");
 		}
@@ -45,12 +39,10 @@ const HomePage = ({ navigation }: any) => {
 	const openCamera = async () => {
 		// Ask the user for the permission to access the camera
 		const permissionResult = await ImagePicker.getCameraPermissionsAsync();
-
 		if (permissionResult.granted === false) {
 			alert("You've refused to allow this appp to access your camera!");
 			return;
 		}
-
 		const result = await ImagePicker.launchCameraAsync({
 			allowsEditing: true,
 			quality: 1,
@@ -59,23 +51,14 @@ const HomePage = ({ navigation }: any) => {
 		});
 		if (!result.canceled) {
 			setSelectedImage(result.assets[0].uri);
-
 			// console.log("result : ", result.assets[0].uri);
-
 			setImageBase64(
 				result.assets[0].base64 ? result.assets[0].base64 : "BASE64 error"
 			);
-
-			// 	console.log("BASE64 =========================",
-			// 	result.assets[0].base64
-			// 		? result.assets[0].base64
-			// 		: "BASE64 error"
-			// );
 		} else {
 			alert("You did not select any image.");
 		}
 	};
-	// const my_image = {require(selectedImage: any)};
 	console.log("selectedImage : ", selectedImage);
 
 	// to signout the page
@@ -179,7 +162,6 @@ const styles = StyleSheet.create({
 		fontSize: 37,
 		lineHeight: 84,
 		paddingLeft: 20,
-		// fontFamily: "Pacifico",
 		marginTop: 80,
 		width: "100%",
 		backgroundColor: "#000000c0",
