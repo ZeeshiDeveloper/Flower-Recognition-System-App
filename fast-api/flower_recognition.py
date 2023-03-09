@@ -52,12 +52,12 @@ cnn.add(tf.keras.layers.Flatten())
 # Now there is a concept of Artificial nueral network 
 # add Hidden layer
 # units defines number of hidden layers
-cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
+cnn.add(tf.keras.layers.Dense(units=128, activation='softmax'))
 
 # Output Layer
 # softmax activation function use here bcz output in the form of binary and maximum then 2 
 # CNN is ready after this process
-cnn.add(tf.keras.layers.Dense(units=6 , activation='softmax'))
+cnn.add(tf.keras.layers.Dense(units=6 , activation='relu'))
 
 
 # Compile result, optimizer is a compiler
