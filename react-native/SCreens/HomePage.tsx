@@ -39,10 +39,10 @@ const HomePage = ({ navigation }: any) => {
 	const openCamera = async () => {
 		// Ask the user for the permission to access the camera
 		const permissionResult = await ImagePicker.getCameraPermissionsAsync();
-		// if (permissionResult.granted === false) {
-		// 	alert("You've refused to allow this appp to access your camera!");
-		// 	return;
-		// }
+		if (permissionResult.granted === false) {
+			alert("You've refused to allow this appp to access your camera!");
+			return;
+		}
 		const result = await ImagePicker.launchCameraAsync({
 			allowsEditing: true,
 			quality: 1,
@@ -73,7 +73,7 @@ const HomePage = ({ navigation }: any) => {
 
 	//Upload Image
 	const handleUpload = async (e: any) => {
-		await fetch("https://be82-119-73-101-73.in.ngrok.io/upload", {
+		await fetch("https://9331-182-185-184-112.in.ngrok.io/upload", {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
