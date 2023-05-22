@@ -3,7 +3,9 @@ import base64
 import numpy as np
 import tensorflow as tf
 # load the saved model
-model = tf.keras.models.load_model('flower.h5')
+# model = tf.keras.models.load_model('flower.h5')
+# model = tf.keras.models.load_model('cnnC7_92P.h5')
+model = tf.keras.models.load_model('cnnC6_92P.h5')
 
 from pydantic import BaseModel
 from fastapi import FastAPI,File
@@ -43,18 +45,40 @@ async def create_upload_file(payload: ImageData):
     result = model.predict(test_image)
     print(result)
 
+    # if result[0][0]==1:
+    #     return {"message": 'Daisy'}
+    # elif result[0][1]==1:
+    #     return {"message": 'Dandelion'}
+    # elif result[0][2]==1:
+    #     print('Rose')
+    #     return {"message": 'Rose'}
+    # elif result[0][3]==1:
+    #     print('SunFlower')
+    #     return {"message": 'SunFlower'}
+    # elif result[0][4]==1:
+    #     print("Tulip")
+    #     return {"message": 'Tulip'}
+
+    # return {"message": "You have selected the wrong Image"}
+
+# cnnC6_88P
     if result[0][0]==1:
+        print('daisy')
         return {"message": 'Daisy'}
     elif result[0][1]==1:
+        print('dandelion')
         return {"message": 'Dandelion'}
     elif result[0][2]==1:
-        print('Rose')
-        return {"message": 'Rose'}
+        print('unknown')
+        return {"message": 'Unknown Image'}
     elif result[0][3]==1:
-        print('SunFlower')
-        return {"message": 'SunFlower'}
+        print('rose')
+        return {"message": 'Rose'}
     elif result[0][4]==1:
-        print("Tulip")
+        print("sunflower")
+        return {"message": 'Sunflower'}
+    elif result[0][5]==1:
+        print("tulip")
         return {"message": 'Tulip'}
 
     return {"message": "You have selected the wrong Image"}

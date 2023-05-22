@@ -73,7 +73,7 @@ const HomePage = ({ navigation }: any) => {
 
 	//Upload Image
 	const handleUpload = async (e: any) => {
-		await fetch("https://9331-182-185-184-112.in.ngrok.io/upload", {
+		await fetch("https://94ec-119-73-101-121.ngrok-free.app/upload", {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
